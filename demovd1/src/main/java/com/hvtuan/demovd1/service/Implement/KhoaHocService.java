@@ -44,4 +44,5 @@ public class KhoaHocService extends BaseService<KhoaHoc, KhoaHocDto> implements 
         return khoaHocPage.map(khoaHoc -> modelMapper.map(khoaHoc, KhoaHocDto.class));
     }
 
+
 }

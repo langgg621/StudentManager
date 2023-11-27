@@ -9,6 +9,7 @@ import com.hvtuan.demovd1.repository.ChuDeRepository;
 import com.hvtuan.demovd1.repository.TaiKhoanRepository;
 import com.hvtuan.demovd1.service.ITaiKhoanService;
 import org.modelmapper.ModelMapper;
+import org.omg.CORBA.DynAnyPackage.Invalid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -42,6 +43,23 @@ public class TaiKhoanService extends BaseService<TaiKhoan,TaiKhoanDto> implement
     public Page<TaiKhoanDto> findAllByTaiKhoan(String taiKhoan, Pageable pageable) {
         Page<TaiKhoan> taiKhoanPage = ((TaiKhoanRepository) repository).findAllByTaiKhoan(taiKhoan, pageable);
         return taiKhoanPage.map(taiKhoan1 -> modelMapper.map(taiKhoan1, TaiKhoanDto.class));
+    }
+
+    @Override
+    public boolean checkMatKhau(String matKhau) {
+        boolean chuaChuso = matKhau.matches(".*\\d.*");
+        boolean chuaKyTuDacBiet = matKhau.matches(".*[!@#$%^&*()_+=\\-\\[\\]{};':\"\\\\|,.<>\\/?].*");
+        return chuaChuso && chuaKyTuDacBiet;
+    }
+
+    @Override
+    public  TaiKhoanDto add(TaiKhoanDto taiKhoanDto)  {
+        TaiKhoan entityToAdd = (TaiKhoan) modelMapper.map(taiKhoanDto, getEntityClass());
+        if (checkMatKhau(entityToAdd.getMatKhau())){
+            TaiKhoan savedEntity = repository.save(entityToAdd);
+            return modelMapper.map(savedEntity, getDtoClass());
+        }
+        return null;
     }
 
 }

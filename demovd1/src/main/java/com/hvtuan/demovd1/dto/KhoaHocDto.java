@@ -6,7 +6,7 @@ import java.util.Date;
 public class KhoaHocDto {
     private long khoaHocID;
     private String tenKhoaHoc;
-    private String thoiGianHoc;
+    private Date thoiGianHoc;
     private String gioiThieu;
     private String noiDung;
     private int hocPhi;
@@ -20,7 +20,7 @@ public class KhoaHocDto {
     public KhoaHocDto() {
     }
 
-    public KhoaHocDto(long khoaHocID, String tenKhoaHoc, String thoiGianHoc, String gioiThieu, String noiDung, int hocPhi, int soHocVien, int soLuongMon, long loaiKhoaHocID, String hinhAnh, Collection<DangKyHocDto> dangKyHocs, LoaiKhoaHocDto loaiKhoaHoc) {
+    public KhoaHocDto(long khoaHocID, String tenKhoaHoc, Date thoiGianHoc, String gioiThieu, String noiDung, int hocPhi, int soHocVien, int soLuongMon, long loaiKhoaHocID, String hinhAnh, Collection<DangKyHocDto> dangKyHocs, LoaiKhoaHocDto loaiKhoaHoc) {
         this.khoaHocID = khoaHocID;
         this.tenKhoaHoc = tenKhoaHoc;
         this.thoiGianHoc = thoiGianHoc;
@@ -51,11 +51,11 @@ public class KhoaHocDto {
         this.tenKhoaHoc = tenKhoaHoc;
     }
 
-    public String getThoiGianHoc() {
+    public Date getThoiGianHoc() {
         return thoiGianHoc;
     }
 
-    public void setThoiGianHoc(String thoiGianHoc) {
+    public void setThoiGianHoc(Date thoiGianHoc) {
         this.thoiGianHoc = thoiGianHoc;
     }
 

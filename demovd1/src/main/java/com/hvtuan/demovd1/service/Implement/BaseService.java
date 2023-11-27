@@ -18,7 +18,7 @@ public abstract class BaseService<TEntity, TDto> implements IBaseService<TEntity
 
 
     @Override
-    public TDto add(TDto dto) {
+    public TDto add(TDto dto) throws Exception {
         TEntity entityToAdd = (TEntity) modelMapper.map(dto, getEntityClass());
         TEntity savedEntity = repository.save(entityToAdd);
         return modelMapper.map(savedEntity, getDtoClass());

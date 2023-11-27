@@ -11,5 +11,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface IDangKyHocService extends IBaseService<DangKyHoc, DangKyHocDto>{
-
+    public void tuDongCapNhatTinhTrangHoc();
+    public DangKyHocDto accept(Long dangKyHocId);
+    public DangKyHocDto refuse(Long dangKyHocId);
 }

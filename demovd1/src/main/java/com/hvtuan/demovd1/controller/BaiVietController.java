@@ -39,9 +39,9 @@ public class BaiVietController extends BaseController<BaiViet, BaiVietDto> {
         }
     }
     @PostMapping(value = "/create")
-    public ResponseEntity<BaiVietDto> create(@ModelAttribute BaiVietDto baiVietDto, @RequestParam MultipartFile image) throws IOException {
+    public ResponseEntity<BaiVietDto> create(@ModelAttribute BaiVietDto baiVietDto, @RequestParam MultipartFile image) throws Exception {
         Path staticPath = Paths.get("static");
-        Path imagePath = Paths.get("baiviet-images");
+        Path imagePath = Paths.get("/baiviet-images");
         if (!Files.exists(CURRENT_FOLDER.resolve(staticPath).resolve(imagePath))) {
             Files.createDirectories(CURRENT_FOLDER.resolve(staticPath).resolve(imagePath));
         }
@@ -55,4 +55,7 @@ public class BaiVietController extends BaseController<BaiViet, BaiVietDto> {
         return new ResponseEntity<>(baiVietDto1,HttpStatus.CREATED);
 
     }
+
+
+
 }

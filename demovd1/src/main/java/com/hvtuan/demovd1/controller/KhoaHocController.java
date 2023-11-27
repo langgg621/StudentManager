@@ -47,7 +47,7 @@ public class KhoaHocController extends BaseController<KhoaHoc, KhoaHocDto> {
         }
     }
     @PostMapping(value = "/create")
-    public ResponseEntity<KhoaHocDto> create(@ModelAttribute KhoaHocDto khoaHocDto, @RequestParam MultipartFile image) throws IOException {
+    public ResponseEntity<KhoaHocDto> create(@ModelAttribute KhoaHocDto khoaHocDto, @RequestParam MultipartFile image) throws Exception {
         Path staticPath = Paths.get("static");
         Path imagePath = Paths.get("khoahoc-images");
         if (!Files.exists(CURRENT_FOLDER.resolve(staticPath).resolve(imagePath))) {

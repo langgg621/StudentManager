@@ -13,7 +13,7 @@ public class BaseController<TEnity, TDto>  {
         this.baseService=baseService;
     }
     @PostMapping("/add")
-    public ResponseEntity<TDto> add(@RequestBody TDto tDto){
+    public ResponseEntity<TDto> add(@RequestBody TDto tDto) throws Exception {
         TDto addDto = baseService.add(tDto);
         return new ResponseEntity<>(addDto, HttpStatus.CREATED);
     }

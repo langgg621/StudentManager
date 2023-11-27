@@ -53,7 +53,7 @@ public class HocVienController extends BaseController<HocVien, HocVienDto> {
         }
     }
     @PostMapping(value = "/create")
-    public ResponseEntity<HocVienDto> create(@ModelAttribute HocVienDto hocVienDto, @RequestParam MultipartFile image) throws IOException{
+    public ResponseEntity<HocVienDto> create(@ModelAttribute HocVienDto hocVienDto, @RequestParam MultipartFile image) throws Exception {
         Path staticPath = Paths.get("static");
         Path imagePath = Paths.get("hocvien-images");
         if (!Files.exists(CURRENT_FOLDER.resolve(staticPath).resolve(imagePath))) {

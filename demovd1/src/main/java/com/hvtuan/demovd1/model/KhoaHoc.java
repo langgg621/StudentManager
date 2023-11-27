@@ -4,6 +4,7 @@ import net.bytebuddy.build.ToStringPlugin;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Date;
 
 @Entity
 @Table(name = "KhoaHoc")
@@ -16,7 +17,7 @@ public class KhoaHoc {
     private String tenKhoaHoc;
 
     @Column(name = "ThoiGianHoc",nullable = false)
-    private String thoiGianHoc;
+    private long thoiGianHoc;
 
     @Column(name = "GioiThieu",nullable = false)
     private String gioiThieu;
@@ -45,7 +46,7 @@ public class KhoaHoc {
     public KhoaHoc() {
     }
 
-    public KhoaHoc(long khoaHocID, String tenKhoaHoc, String thoiGianHoc, String gioiThieu, String noiDung, int hocPhi, int soHocVien, int soLuongMon, long loaiKhoaHocID, String hinhAnh, Collection<DangKyHoc> dangKyHocs, LoaiKhoaHoc loaiKhoaHoc) {
+    public KhoaHoc(long khoaHocID, String tenKhoaHoc, long thoiGianHoc, String gioiThieu, String noiDung, int hocPhi, int soHocVien, int soLuongMon, long loaiKhoaHocID, String hinhAnh, Collection<DangKyHoc> dangKyHocs, LoaiKhoaHoc loaiKhoaHoc) {
         this.khoaHocID = khoaHocID;
         this.tenKhoaHoc = tenKhoaHoc;
         this.thoiGianHoc = thoiGianHoc;
@@ -76,11 +77,11 @@ public class KhoaHoc {
         this.tenKhoaHoc = tenKhoaHoc;
     }
 
-    public String getThoiGianHoc() {
+    public long getThoiGianHoc() {
         return thoiGianHoc;
     }
 
-    public void setThoiGianHoc(String thoiGianHoc) {
+    public void setThoiGianHoc(long thoiGianHoc) {
         this.thoiGianHoc = thoiGianHoc;
     }
 

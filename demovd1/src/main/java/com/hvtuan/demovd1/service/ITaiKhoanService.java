@@ -7,5 +7,6 @@ import org.springframework.data.domain.Pageable;
 
 public interface ITaiKhoanService extends IBaseService<TaiKhoan,TaiKhoanDto>{
     public Page<TaiKhoanDto> findAllByTaiKhoan(String taiKhoan, Pageable pageable);
+    boolean checkMatKhau(String matKhau);
 
 }

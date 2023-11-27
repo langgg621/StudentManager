@@ -1,9 +1,12 @@
 package com.hvtuan.demovd1.model;
 
+import com.hvtuan.demovd1.dto.TinhTrangHocDto;
 import net.bytebuddy.build.ToStringPlugin;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Optional;
 
 @Entity
 @Table(name = "DangKyHoc")
@@ -12,6 +15,8 @@ public class DangKyHoc {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(name = "NgayDangKy")
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
     private Date ngayDangKy;
 
     @Column(name = "NgayBatDau")
@@ -158,5 +163,8 @@ public class DangKyHoc {
 
     public void setTaiKhoan(TaiKhoan taiKhoan) {
         this.taiKhoan = taiKhoan;
+    }
+
+    public void setTinhTrangHoc(Optional<TinhTrangHocDto> chưaHoànThành) {
     }
 }
