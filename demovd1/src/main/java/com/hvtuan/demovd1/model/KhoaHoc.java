@@ -33,7 +33,7 @@ public class KhoaHoc {
     private int soLuongMon;
     @Column(name = "LoaiKhoaHocID",nullable = false, insertable = false, updatable = false)
     private long loaiKhoaHocID;
-    @Column(name = "HinhAnh",nullable = false)
+    @Column(name = "HinhAnh")
     private String hinhAnh;
     @OneToMany(mappedBy = "khoaHoc", cascade = CascadeType.ALL)
     @ToStringPlugin.Exclude

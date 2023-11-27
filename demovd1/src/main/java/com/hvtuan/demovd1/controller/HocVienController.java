@@ -9,15 +9,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @RestController
 @RequestMapping("/api/hocvien")
 public class HocVienController extends BaseController<HocVien, HocVienDto> {
+    private static final Path CURRENT_FOLDER = Paths.get(System.getProperty("user.dir"));
     private final IHocVienService hocVienService;
     @Autowired
     public HocVienController(IHocVienService hocVienService) {
@@ -45,6 +51,23 @@ public class HocVienController extends BaseController<HocVien, HocVienDto> {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+    @PostMapping(value = "/create")
+    public ResponseEntity<HocVienDto> create(@ModelAttribute HocVienDto hocVienDto, @RequestParam MultipartFile image) throws IOException{
+        Path staticPath = Paths.get("static");
+        Path imagePath = Paths.get("hocvien-images");
+        if (!Files.exists(CURRENT_FOLDER.resolve(staticPath).resolve(imagePath))) {
+            Files.createDirectories(CURRENT_FOLDER.resolve(staticPath).resolve(imagePath));
+        }
+        Path file = CURRENT_FOLDER.resolve(staticPath)
+                .resolve(imagePath).resolve(image.getOriginalFilename());
+        try (OutputStream os = Files.newOutputStream(file)) {
+            os.write(image.getBytes());
+        }
+        hocVienDto.setHinhAnh(imagePath.resolve(image.getOriginalFilename()).toString());
+        HocVienDto hocVienDto1 = hocVienService.add(hocVienDto);
+        return new ResponseEntity<>(hocVienDto1,HttpStatus.CREATED);
+
     }
 
 }

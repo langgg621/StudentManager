@@ -11,11 +11,20 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @RestController
 @RequestMapping("/api/khoahoc")
 public class KhoaHocController extends BaseController<KhoaHoc, KhoaHocDto> {
     private final IKhoaHocService khoaHocService;
+    private static final Path CURRENT_FOLDER = Paths.get(System.getProperty("user.dir"));
+
     @Autowired
     public KhoaHocController(IKhoaHocService khoaHocService, IKhoaHocService khoaHocService1) {
         super(khoaHocService);
@@ -36,6 +45,23 @@ public class KhoaHocController extends BaseController<KhoaHoc, KhoaHocDto> {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+    @PostMapping(value = "/create")
+    public ResponseEntity<KhoaHocDto> create(@ModelAttribute KhoaHocDto khoaHocDto, @RequestParam MultipartFile image) throws IOException {
+        Path staticPath = Paths.get("static");
+        Path imagePath = Paths.get("khoahoc-images");
+        if (!Files.exists(CURRENT_FOLDER.resolve(staticPath).resolve(imagePath))) {
+            Files.createDirectories(CURRENT_FOLDER.resolve(staticPath).resolve(imagePath));
+        }
+        Path file = CURRENT_FOLDER.resolve(staticPath)
+                .resolve(imagePath).resolve(image.getOriginalFilename());
+        try (OutputStream os = Files.newOutputStream(file)) {
+            os.write(image.getBytes());
+        }
+        khoaHocDto.setHinhAnh(imagePath.resolve(image.getOriginalFilename()).toString());
+        KhoaHocDto khoaHocDto1 = khoaHocService.add(khoaHocDto);
+        return new ResponseEntity<>(khoaHocDto1,HttpStatus.CREATED);
+
     }
 
 

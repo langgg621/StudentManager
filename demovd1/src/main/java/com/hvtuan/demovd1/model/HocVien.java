@@ -13,10 +13,10 @@ public class HocVien {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "HocVienID", nullable = false)
     private long hocVienID;
-    @Column(name = "HoTen", nullable = false)
+    @Column(name = "HoTen")
     private String hoten;
 
-    @Column(name = "Ngaysinh", nullable = false)
+    @Column(name = "Ngaysinh")
     private Date ngaysinh;
 
     @Column(name = "SDT", unique = true, nullable = false)
@@ -25,18 +25,18 @@ public class HocVien {
     @Column(name = "Email", unique = true, nullable = false)
     private String email;
 
-    @Column(name = "TinhThanh", nullable = false)
+    @Column(name = "TinhThanh")
     private String tinhThanh;
 
-    @Column(name = "QuanHuyen", nullable = false)
+    @Column(name = "QuanHuyen")
     private String quanhuyen;
 
-    @Column(name = "PhuongXa", nullable = false)
+    @Column(name = "PhuongXa")
     private String phuongxa;
 
-    @Column(name = "SoNha", nullable = false)
+    @Column(name = "SoNha")
     private String sonha;
-    @Column(name = "HinhAnh", nullable = false)
+    @Column(name = "HinhAnh")
     private String hinhAnh;
 
     @OneToMany(mappedBy = "hocVien", cascade = CascadeType.ALL)
@@ -74,8 +74,9 @@ public class HocVien {
     }
 
     public void setHoten(String hoten) {
-        this.hoten = hoten;
+        this.hoten = hoten.toUpperCase();
     }
+
 
     public Date getNgaysinh() {
         return ngaysinh;

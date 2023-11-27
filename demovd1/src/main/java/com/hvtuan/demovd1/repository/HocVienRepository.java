@@ -12,4 +12,5 @@ public interface HocVienRepository extends JpaRepository<HocVien,Long> {
     Page<HocVien> findAllByHoten(Pageable pageable,String hoTen);
     Page<HocVien> findAllByEmail(Pageable pageable,String email);
 
+
 }
